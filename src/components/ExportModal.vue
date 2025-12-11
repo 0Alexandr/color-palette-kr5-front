@@ -8,12 +8,8 @@
 
       <div class="modal-body">
         <div class="tabs">
-          <button 
-            v-for="format in formats" 
-            :key="format.id"
-            :class="{ active: currentFormat === format.id }"
-            @click="currentFormat = format.id"
-          >
+          <button v-for="format in formats" :key="format.id" :class="{ active: currentFormat === format.id }"
+            @click="currentFormat = format.id">
             {{ format.label }}
           </button>
         </div>
@@ -58,20 +54,20 @@ export default {
 
     const generatedCode = computed(() => {
       const hexValues = props.colors.map(c => c.hex)
-      
+
       switch (currentFormat.value) {
         case 'css':
           return `:root {\n${hexValues.map((hex, i) => `  --color-${i + 1}: ${hex};`).join('\n')}\n}`
-        
+
         case 'scss':
           return hexValues.map((hex, i) => `$color-${i + 1}: ${hex};`).join('\n')
-        
+
         case 'json':
           return JSON.stringify(hexValues, null, 2)
-        
+
         case 'tailwind':
           return `module.exports = {\n  theme: {\n    colors: {\n${hexValues.map((hex, i) => `      'primary-${i + 1}': '${hex}',`).join('\n')}\n    }\n  }\n}`
-        
+
         default:
           return ''
       }
@@ -114,7 +110,7 @@ export default {
   width: 90%;
   max-width: 600px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
 

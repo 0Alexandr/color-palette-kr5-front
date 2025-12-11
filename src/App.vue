@@ -36,7 +36,10 @@ body {
   align-items: center;
 }
 
-.nav-brand { font-weight: bold; font-size: 1.2rem; }
+.nav-brand {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
 
 .nav-links a {
   color: #ccc;

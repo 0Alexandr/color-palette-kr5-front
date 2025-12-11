@@ -64,7 +64,9 @@ body {
 }
 
 /* Элементы форм */
-input, select, textarea {
+input,
+select,
+textarea {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -73,7 +75,9 @@ input, select, textarea {
   transition: border-color 0.2s;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
