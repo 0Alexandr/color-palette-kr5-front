@@ -46,6 +46,11 @@ export default {
 
 .preview-container.dark {
   background: #333;
+  color: #f8f9fa;
+}
+
+.preview-container.dark input[type="checkbox"] {
+    accent-color: #667eea;
 }
 
 .mockup-header {
