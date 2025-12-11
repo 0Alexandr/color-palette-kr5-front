@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="palette-grid" :style="{ gridTemplateColumns: `repeat(${count}, 1fr)` }">
+        <div class="palette-grid">
             <ColorCard v-for="color in colors" :key="color.id" :color="color" :show-rgb="showRgbMode"
                 @toggle-lock="toggleLock" @copy="showNotification" />
         </div>
@@ -132,8 +132,14 @@ export default {
                 `\n}`
         })
 
+        // 1. РЕАКТИВНОЕ ИЗМЕНЕНИЕ: Наблюдаем за count. Если он меняется, 
+        // немедленно обновляем палитру до нового размера.
+        watch(count, () => {
+             generatePalette();
+        });
+
         // Хуки и вотчеры
-        // Сохраняем текущее состояние "рабочего стола"
+        // 2. СОХРАНЕНИЕ В LOCALSTORAGE: Наблюдаем за colors.
         watch(colors, (newVal) => {
             localStorage.setItem('currentWorkspace', JSON.stringify(newVal))
         }, { deep: true })
@@ -142,6 +148,8 @@ export default {
             const cached = localStorage.getItem('currentWorkspace')
             if (cached) {
                 colors.value = JSON.parse(cached)
+                // Устанавливаем count на основе загруженного массива
+                count.value = colors.value.length;
             } else {
                 generatePalette()
             }
@@ -149,7 +157,7 @@ export default {
 
         return {
             colors, count, mode, showRgbMode, notification, cssOutput,
-            generatePalette, toggleLock, showNotification, savePalette
+            generatePalette, toggleLock, showNotification, savePalette, showExportModal
         }
     }
 }
@@ -173,6 +181,7 @@ export default {
     display: grid;
     gap: 15px;
     margin-bottom: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 }
 
 .notification {
